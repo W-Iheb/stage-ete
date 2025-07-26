@@ -1,6 +1,6 @@
 <?php 
 
-namespace App\Application\Command\Produit;
+namespace App\Produit\Application\Command;
 
 class CreateProduitCommand
 {

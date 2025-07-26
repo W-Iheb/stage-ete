@@ -1,28 +1,35 @@
-<?php
-namespace App\Produit\Domain\Entity;
+<?php 
 
-use App\Categorie\Domain\Entity\Categorie;
+namespace App\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
+#[ORM\Entity]
+#[ORM\Table(name: "produits")]
 class Produit
 {
-    private ?int $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: "integer")]
+    private int $id;
+
+    #[ORM\Column(length: 255)]
     private string $title;
+
+    #[ORM\Column(type: "text")]
     private string $description;
+
+    #[ORM\Column(type: "float")]
     private float $price;
+
+    #[ORM\Column(type: "datetime")]
     private \DateTimeInterface $expirationDate;
-    private Categorie $categorie;
 
-    public function __construct(?int $id, string $title, string $description, float $price, \DateTimeInterface $expirationDate, Categorie $categorie)
-    {
-        $this->id = $id;
-        $this->title = $title;
-        $this->description = $description;
-        $this->price = $price;
-        $this->expirationDate = $expirationDate;
-        $this->categorie = $categorie;
-    }
+    #[ORM\ManyToOne(targetEntity: DoctrineCategorie::class, inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?DoctrineCategorie $categorie = null;
 
- public function getId(): ?int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -67,14 +74,13 @@ class Produit
         $this->expirationDate = $expirationDate;
     }
 
-    public function getCategorie(): Categorie
+    public function getCategorie(): ?DoctrineCategorie
     {
         return $this->categorie;
     }
 
-    public function setCategorie(Categorie $categorie): void
+    public function setCategorie(?DoctrineCategorie $categorie): void
     {
         $this->categorie = $categorie;
     }
-
 }

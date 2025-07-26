@@ -2,7 +2,7 @@
 
 namespace App\Produit\Domain\Repository;
 
-use App\Produit\Domain\Entity\Produit;
+use App\Entity\Produit;
 
 interface ProduitRepositoryInterface
 {
